@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url(../images/bloco-tijolos.jpg);
+}
+
+.menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 16px 0;
+  height: 119px;
+  width: 100%;
+  background-color: #111111;
+  color: #ffffff;
+  border-bottom: 4px solid #ffd700;
+}
+
+.menu > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+img {
+  display: block;
+}
+
+.panel {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square {
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.8);
+  margin: 5px;
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+  background-color: #3f0404;
+}
+
+.enemy {
+  background-image: url(../images/ralph.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}

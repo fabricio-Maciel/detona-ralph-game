@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -57,4 +58,55 @@ img {
 
 .menu-lives {
   text-align: start;
+}
+
+.box-container {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  background-color: #ffd700;
+  color: #000;
+  padding: 40px 20px;
+  border-radius: 4px;
+
+  .box-titulo {
+    font-size: 1.5rem;
+  }
+
+  .box-button {
+    display: flex;
+    padding-top: 32px;
+    justify-content: space-around;
+
+    button {
+      padding: 8px 16px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border: none;
+
+      &:hover {
+        background-color: #3f0404;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+#end-game {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  color: #fff;
+  padding: 40px 40px;
+  border-radius: 4px;
+
+  p {
+    font-size: 1.5rem;
+  }
 }

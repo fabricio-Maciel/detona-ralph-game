@@ -5,6 +5,10 @@ const state = {
     timeLeft: document.querySelector("#time-left"),
     score: document.querySelector("#score"),
     record: document.querySelector("#record"),
+    resetGame: document.querySelector("#reset"),
+    buttonResetYes: document.querySelector("#button-sim"),
+    buttonResetNo: document.querySelector("#button-nao"),
+    endGame: document.querySelector("#end-game"),
   },
   values: {
     timeId: null,
@@ -15,16 +19,9 @@ const state = {
     recordAtual: 0,
   },
   actions: {
-    countDownTimerId: setInterval(countDown, 1000),
+    countDownTimerId: null,
   },
 };
-
-// Função que toca o som de acerto
-function playSound() {
-  let audio = new Audio("./src/audios/hit.m4a");
-  audio.volume = 0.009;
-  audio.play();
-}
 
 // Função para correr o tempo de forma interna, visual e finalizar o game
 function countDown() {
@@ -34,9 +31,12 @@ function countDown() {
   if (state.values.currentTime <= 0) {
     clearInterval(state.actions.countDownTimerId);
     clearInterval(state.values.timeId);
+
+    state.view.resetGame.style.display = "block";
+
     if (state.values.result > state.values.recordAtual) {
       state.values.recordAtual = state.values.result;
-      state.view.record.textContent = `RECORD - ${state.values.recordAtual} `;
+      state.view.record.textContent = `RECORD ${state.values.recordAtual} `;
     }
   }
 }
@@ -58,6 +58,10 @@ function moveEnemy() {
   state.values.timeId = setInterval(randomSquare, state.values.gameVelocity);
 }
 
+function timer() {
+  state.actions.countDownTimerId = setInterval(countDown, 1000);
+}
+
 // Função que atribui o listener de click nas caixas
 function addListenerHitBox() {
   state.view.squares.forEach((square) => {
@@ -72,10 +76,38 @@ function addListenerHitBox() {
   });
 }
 
+// Função que atribui o listener de click aos botões
+function addListenerButtons() {
+  state.view.buttonResetYes.addEventListener("click", () => {
+    state.view.resetGame.style.display = "none";
+    state.values.result = 0;
+    state.view.score.textContent = 0;
+    state.values.currentTime = 10;
+    console.log(state.values.currentTime);
+    console.log(state.values.result);
+    init();
+  });
+  state.view.buttonResetNo.addEventListener("click", () => {
+    state.view.resetGame.style.display = "none";
+    state.view.endGame.style.display = "block";
+  });
+}
+
 // Função inicial
 function init() {
+  clearInterval(state.actions.countDownTimerId);
+  clearInterval(state.values.timeId);
   moveEnemy();
+  timer();
   addListenerHitBox();
+  addListenerButtons();
 }
 
 init();
+
+// Função que toca o som de acerto
+function playSound() {
+  let audio = new Audio("./src/audios/hit.m4a");
+  audio.volume = 0.009;
+  audio.play();
+}

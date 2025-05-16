@@ -25,6 +25,7 @@
 
 img {
   display: block;
+  width: 100px;
 }
 
 .panel {
@@ -48,4 +49,12 @@ img {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
+}
+
+.title {
+  color: #c03b3b;
+}
+
+.menu-lives {
+  text-align: start;
 }

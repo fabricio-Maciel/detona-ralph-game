@@ -9,6 +9,8 @@ const state = {
     buttonResetYes: document.querySelector("#button-sim"),
     buttonResetNo: document.querySelector("#button-nao"),
     endGame: document.querySelector("#end-game"),
+    startGame: document.querySelector("#start-game"),
+    buttonStart: document.querySelector(".start-button"),
   },
   values: {
     timeId: null,
@@ -22,6 +24,28 @@ const state = {
     countDownTimerId: null,
   },
 };
+
+// Função que recomeça o jogo
+function startGameAgain() {
+  clearInterval(state.actions.countDownTimerId);
+  clearInterval(state.values.timeId);
+  moveEnemy();
+  timer();
+  addListenerHitBox();
+  addListenerButtons();
+}
+// Função para startar o jogo
+function addListenerStart() {
+  state.view.buttonStart.addEventListener("click", () => {
+    state.view.startGame.style.display = "none";
+    clearInterval(state.actions.countDownTimerId);
+    clearInterval(state.values.timeId);
+    moveEnemy();
+    timer();
+    addListenerHitBox();
+    addListenerButtons();
+  });
+}
 
 // Função para correr o tempo de forma interna, visual e finalizar o game
 function countDown() {
@@ -85,7 +109,7 @@ function addListenerButtons() {
     state.values.currentTime = 10;
     console.log(state.values.currentTime);
     console.log(state.values.result);
-    init();
+    startGameAgain();
   });
   state.view.buttonResetNo.addEventListener("click", () => {
     state.view.resetGame.style.display = "none";
@@ -95,12 +119,7 @@ function addListenerButtons() {
 
 // Função inicial
 function init() {
-  clearInterval(state.actions.countDownTimerId);
-  clearInterval(state.values.timeId);
-  moveEnemy();
-  timer();
-  addListenerHitBox();
-  addListenerButtons();
+  addListenerStart();
 }
 
 init();

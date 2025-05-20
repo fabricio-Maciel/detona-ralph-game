@@ -8,10 +8,11 @@
 
 .menu {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  padding: 16px 0;
-  height: 119px;
+  gap: 32px;
+  padding: 16px 16px;
   width: 100%;
   background-color: #111111;
   color: #ffffff;
@@ -23,6 +24,7 @@
 }
 
 .menu > div {
+  margin-right: 10px;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -47,6 +49,7 @@ img {
   width: 200px;
   border-radius: 4px;
   background-color: #3f0404;
+  cursor: pointer;
 }
 
 .enemy {
@@ -62,14 +65,15 @@ img {
 
 #start-game {
   display: block;
+  width: 550px;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   translate: -50% -50%;
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 1.8vw, 2rem);
   background-color: #ffd700;
   color: #000000;
-  padding: 32px 16px 16px 16px;
+  padding: 16px;
   border-radius: 4px;
   text-align: center;
 
@@ -108,11 +112,14 @@ img {
 
   .box-titulo {
     font-size: 1.5rem;
+    text-align: center;
+    white-space: 1rem;
   }
 
   .box-button {
     display: flex;
     padding-top: 32px;
+    gap: 8px;
     justify-content: space-around;
 
     button {
@@ -130,6 +137,7 @@ img {
 }
 
 #end-game {
+  text-align: center;
   display: none;
   position: absolute;
   top: 50%;
@@ -142,5 +150,70 @@ img {
 
   p {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 780px) {
+  .panel {
+    .square {
+      height: 150px;
+      width: 150px;
+    }
+  }
+
+  #start-game {
+    width: 400px;
+  }
+
+  #reset {
+    padding: 16px;
+    .box-titulo {
+      p {
+        font-size: 1.1rem;
+      }
+    }
+    .box-button {
+      padding-top: 16px;
+    }
+    .box-button button {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .panel {
+    .square {
+      height: 100px;
+      width: 100px;
+    }
+  }
+
+  .menu > div {
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+
+  #start-game {
+    width: 320px;
+  }
+
+  #reset {
+    .box-titulo {
+      p {
+        font-size: 0.8rem;
+      }
+    }
+
+    .box-button button {
+      font-size: 0.8rem;
+    }
+  }
+
+  #end-game {
+    padding: 32px;
+    p {
+      font-size: 1rem;
+    }
   }
 }

@@ -38,12 +38,7 @@ function startGameAgain() {
 function addListenerStart() {
   state.view.buttonStart.addEventListener("click", () => {
     state.view.startGame.style.display = "none";
-    clearInterval(state.actions.countDownTimerId);
-    clearInterval(state.values.timeId);
-    moveEnemy();
-    timer();
-    addListenerHitBox();
-    addListenerButtons();
+    startGameAgain();
   });
 }
 
@@ -55,6 +50,9 @@ function countDown() {
   if (state.values.currentTime <= 0) {
     clearInterval(state.actions.countDownTimerId);
     clearInterval(state.values.timeId);
+    state.view.squares.forEach((square) => {
+      square.style.pointerEvents = "none";
+    });
 
     state.view.resetGame.style.display = "block";
 

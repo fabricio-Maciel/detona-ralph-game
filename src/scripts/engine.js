@@ -25,6 +25,21 @@ const state = {
   },
 };
 
+// Função inicial
+function init() {
+  addListenerStart();
+}
+
+init();
+
+// Função para startar o jogo
+function addListenerStart() {
+  state.view.buttonStart.addEventListener("click", () => {
+    state.view.startGame.style.display = "none";
+    startGameAgain();
+  });
+}
+
 // Função que recomeça o jogo
 function startGameAgain() {
   clearInterval(state.actions.countDownTimerId);
@@ -33,13 +48,6 @@ function startGameAgain() {
   timer();
   addListenerHitBox();
   addListenerButtons();
-}
-// Função para startar o jogo
-function addListenerStart() {
-  state.view.buttonStart.addEventListener("click", () => {
-    state.view.startGame.style.display = "none";
-    startGameAgain();
-  });
 }
 
 // Função para correr o tempo de forma interna, visual e finalizar o game
@@ -50,12 +58,9 @@ function countDown() {
   if (state.values.currentTime <= 0) {
     clearInterval(state.actions.countDownTimerId);
     clearInterval(state.values.timeId);
-    state.view.squares.forEach((square) => {
-      square.style.pointerEvents = "none";
-    });
-
     state.view.resetGame.style.display = "block";
 
+    removeListenerHitBox();
     if (state.values.result > state.values.recordAtual) {
       state.values.recordAtual = state.values.result;
       state.view.record.textContent = `RECORD ${state.values.recordAtual} `;
@@ -80,25 +85,23 @@ function moveEnemy() {
   state.values.timeId = setInterval(randomSquare, state.values.gameVelocity);
 }
 
+// Função que chama a função responsável por decrementar o cronômetro do jogo, a cada um segundo
 function timer() {
   state.actions.countDownTimerId = setInterval(countDown, 1000);
 }
 
-// Função que atribui o listener de click nas caixas
-function addListenerHitBox() {
-  state.view.squares.forEach((square) => {
-    square.addEventListener("mousedown", () => {
-      if (square.id === state.values.hitPosition) {
-        state.values.result++;
-        state.view.score.textContent = state.values.result;
-        state.values.hitPosition = null;
-        playSound();
-      }
-    });
-  });
+// Função que atribui o listener de click nas caixas e confere se a caixa clicada, é a certa ou não
+function handleHitBoxClick(event) {
+  const square = event.currentTarget;
+
+  if (square.id === state.values.hitPosition) {
+    state.values.result++;
+    state.view.score.textContent = state.values.result;
+    state.values.hitPosition = null;
+  }
 }
 
-// Função que atribui o listener de click aos botões
+// Função que atribui o listener de click aos botões de jogar novamente
 function addListenerButtons() {
   state.view.buttonResetYes.addEventListener("click", () => {
     state.view.resetGame.style.display = "none";
@@ -115,16 +118,15 @@ function addListenerButtons() {
   });
 }
 
-// Função inicial
-function init() {
-  addListenerStart();
+function addListenerHitBox() {
+  state.view.squares.forEach((square) => {
+    square.addEventListener("mousedown", handleHitBoxClick);
+  });
 }
 
-init();
-
-// Função que toca o som de acerto
-function playSound() {
-  let audio = new Audio("./src/audios/hit.m4a");
-  audio.volume = 0.009;
-  audio.play();
+// Função que remove o listener das caixas quando acaba o jogo
+function removeListenerHitBox() {
+  state.view.squares.forEach((square) => {
+    square.removeEventListener("mousedown", handleHitBoxClick);
+  });
 }

@@ -153,7 +153,7 @@ img {
   }
 }
 
-@media (max-width: 780px) {
+@media (min-width: 501px) and (max-width: 780px) {
   .panel {
     .square {
       height: 150px;

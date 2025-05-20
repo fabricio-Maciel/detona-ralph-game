@@ -52,7 +52,12 @@ img {
   cursor: pointer;
 }
 
+.square.hit {
+  background-color: #ffd700; /* verde */
+}
+
 .enemy {
+  z-index: 1;
   background-image: url(../images/ralph.png);
   background-size: contain;
   background-repeat: no-repeat;
